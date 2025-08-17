@@ -9,8 +9,7 @@ public class Task {
 
     public String markAsDone() {
         this.isDone = true;
-        return String.format("    Nice! I've marked this task as done:\n      [%s] %s\n",
-                             this.getStatusIcon(), this.toString());
+        return String.format("    Nice! I've marked this task as done:\n      %s\n", this.toString());
     }
 
     public String markAsNotDone() {
@@ -27,6 +26,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }
