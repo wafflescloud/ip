@@ -14,8 +14,7 @@ public class Task {
 
     public String markAsNotDone() {
         this.isDone = false;
-        return String.format("    OK, I've marked this task as not done yet:\n      [%s] %s\n",
-                this.getStatusIcon(), this.toString());
+        return String.format("    OK, I've marked this task as not done yet:\n      %s\n", this.toString());
     }
 
     public String getStatusIcon() {

@@ -4,7 +4,7 @@ public class Bin {
     private static final String greeting = "    Hello! I'm Bin\n" +
                                            "    What can I do for you?\n";
     private static final String line = "  ___________________________________________\n";
-    private static final String logo = "  _____    _  \n"
+    private static final String logo = "  _____    _\n"
                                     + " |  __  \\ |_|\n"
                                     + " | |__| / ___  ________\n"
                                     + " |  __  \\|   ||   __   |\n"
@@ -43,45 +43,78 @@ public class Bin {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(greeting());
+
         String input = scanner.nextLine();
+
         while (!input.equals("bye")) {
-            String[] parts = input.split("\\s+", 2);
-            String action = parts[0];
-            String from;
-            String to;
-            String by;
-            switch (action) {
-                case "list":
-                    System.out.println(list());
-                    break;
-                case "mark":
-                    int num = Integer.parseInt(parts[1]);
-                    System.out.println(line + tasks[num - 1].markAsDone() + line);
-                    break;
-                case "unmark":
-                    num = Integer.parseInt(parts[1]);
-                    System.out.println(line + tasks[num - 1].markAsNotDone() + line);
-                    break;
-                case "todo":
-                    String task = parts[1];
-                    System.out.println(add(new Todo(task)));
-                    break;
-                case "deadline":
-                    parts = parts[1].split("/by", 2);
-                    task = parts[0];
-                    by = parts[1];
-                    System.out.println(add(new Deadline(task, by)));
-                    break;
-                case "event":
-                    parts = parts[1].split("/from", 2);
-                    task = parts[0];
-                    parts = parts[1].split("/to", 2);
-                    from = parts[0];
-                    to = parts[1];
-                    System.out.println(add(new Event(task, from, to)));
-                    break;
-                default:
-                    break;
+            try {
+                if (input.isEmpty()) {
+                    throw new BinException("Please have a valid input!");
+                }
+                String[] parts = input.split("\\s+", 2);
+                String action = parts[0];
+                String from;
+                String to;
+                String by;
+                switch (action) {
+                    case "list":
+                        System.out.println(list());
+                        break;
+                    case "mark":
+                        if (parts.length < 2) {
+                            throw new BinException(line + "    Please state which task to mark\n" + line);
+                        }
+                        int num = Integer.parseInt(parts[1]);
+                        System.out.println(line + tasks[num - 1].markAsDone() + line);
+                        break;
+                    case "unmark":
+                        if (parts.length < 2) {
+                            throw new BinException(line + "    Please state which task to unmark\n" + line);
+                        }
+                        num = Integer.parseInt(parts[1]);
+                        System.out.println(line + tasks[num - 1].markAsNotDone() + line);
+                        break;
+                    case "todo":
+                        if (parts.length < 2) {
+                            throw new BinException(line + "    Please include a description of the task\n" + line);
+                        }
+                        String task = parts[1];
+                        System.out.println(add(new Todo(task)));
+                        break;
+                    case "deadline":
+                        if (parts.length < 2) {
+                            throw new BinException(line + "    Please include a description of the task\n" + line);
+                        }
+                        parts = parts[1].split("/by", 2);
+                        if (parts.length < 2) {
+                            throw new BinException(line + "    Please include a deadline of the task\n" + line);
+                        }
+                        task = parts[0];
+                        by = parts[1];
+                        System.out.println(add(new Deadline(task, by)));
+                        break;
+                    case "event":
+                        if (parts.length < 2) {
+                            throw new BinException(line + "    Please include a description of the task\n" + line);
+                        }
+                        parts = parts[1].split("/from", 2);
+                        if (parts.length < 2) {
+                            throw new BinException(line + "    Please include a start time of the task\n" + line);
+                        }
+                        task = parts[0];
+                        parts = parts[1].split("/to", 2);
+                        if (parts.length < 2) {
+                            throw new BinException(line + "    Please include a end time of the task\n" + line);
+                        }
+                        from = parts[0];
+                        to = parts[1];
+                        System.out.println(add(new Event(task, from, to)));
+                        break;
+                    default:
+                        throw new BinException(line + "    Invalid instructions\n" + line);
+                }
+            } catch (BinException e) {
+                System.out.println(e.getMessage());
             }
             input = scanner.nextLine();
         }
