@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Bin {
@@ -12,7 +14,7 @@ public class Bin {
                                     + " |_____/ |___||__|  |__|\n"
                                     + "\n";
     private static final String exit = "    Bye. Hope to see you again soon!\n";
-    private static Task[] tasks = new Task[100];
+    private static List<Task> tasks = new ArrayList<>();
     private static int taskNum = 0;
 
     public static String greeting() {
@@ -26,7 +28,7 @@ public class Bin {
     public static String list() {
         String result = "    Here are the tasks in your list:\n";
         for (int i = 0; i < taskNum; i++) {
-            Task task = tasks[i];
+            Task task = tasks.get(i);
             int num = i + 1;
             result += "    " + num + "." + task.toString() + "\n";
         }
@@ -34,9 +36,17 @@ public class Bin {
     }
 
     public static String add(Task task) {
-        tasks[taskNum] = task;
+        tasks.add(task);
         taskNum++;
         return line + "    Got it. I've added this task:\n      " + task.toString() + "\n" +
+               "    Now you have " + taskNum + " tasks in the list.\n" + line;
+    }
+
+    public static String delete(int i) {
+        Task task = tasks.get(i);
+        tasks.remove(i);
+        taskNum--;
+        return line + "    Noted. I've removed this task:\n      " + task.toString() + "\n" +
                "    Now you have " + taskNum + " tasks in the list.\n" + line;
     }
 
@@ -65,14 +75,14 @@ public class Bin {
                             throw new BinException(line + "    Please state which task to mark\n" + line);
                         }
                         int num = Integer.parseInt(parts[1]);
-                        System.out.println(line + tasks[num - 1].markAsDone() + line);
+                        System.out.println(line + tasks.get(num - 1).markAsDone() + line);
                         break;
                     case "unmark":
                         if (parts.length < 2) {
                             throw new BinException(line + "    Please state which task to unmark\n" + line);
                         }
                         num = Integer.parseInt(parts[1]);
-                        System.out.println(line + tasks[num - 1].markAsNotDone() + line);
+                        System.out.println(line + tasks.get(num - 1).markAsNotDone() + line);
                         break;
                     case "todo":
                         if (parts.length < 2) {
@@ -109,6 +119,13 @@ public class Bin {
                         from = parts[0];
                         to = parts[1];
                         System.out.println(add(new Event(task, from, to)));
+                        break;
+                    case "delete":
+                        if (parts.length < 2) {
+                            throw new BinException(line + "    Please state which task to delete\n" + line);
+                        }
+                        num = Integer.parseInt(parts[1]);
+                        System.out.println(delete(num - 1));
                         break;
                     default:
                         throw new BinException(line + "    Invalid instructions\n" + line);
