@@ -59,7 +59,7 @@ public class Bin {
         while (!input.equals("bye")) {
             try {
                 if (input.isEmpty()) {
-                    throw new BinException("Please have a valid input!");
+                    throw new NoInputException("input");
                 }
                 String[] parts = input.split("\\s+", 2);
                 String action = parts[0];
@@ -72,32 +72,32 @@ public class Bin {
                         break;
                     case "mark":
                         if (parts.length < 2) {
-                            throw new BinException(line + "    Please state which task to mark\n" + line);
+                            throw new NoTaskNumberException();
                         }
                         int num = Integer.parseInt(parts[1]);
                         System.out.println(line + tasks.get(num - 1).markAsDone() + line);
                         break;
                     case "unmark":
                         if (parts.length < 2) {
-                            throw new BinException(line + "    Please state which task to unmark\n" + line);
+                            throw new NoTaskNumberException();
                         }
                         num = Integer.parseInt(parts[1]);
                         System.out.println(line + tasks.get(num - 1).markAsNotDone() + line);
                         break;
                     case "todo":
                         if (parts.length < 2) {
-                            throw new BinException(line + "    Please include a description of the task\n" + line);
+                            throw new NoTaskDescriptionException();
                         }
                         String task = parts[1];
                         System.out.println(add(new Todo(task)));
                         break;
                     case "deadline":
                         if (parts.length < 2) {
-                            throw new BinException(line + "    Please include a description of the task\n" + line);
+                            throw new NoTaskDescriptionException();
                         }
                         parts = parts[1].split("/by", 2);
                         if (parts.length < 2) {
-                            throw new BinException(line + "    Please include a deadline of the task\n" + line);
+                            throw new NoInputException("deadline");
                         }
                         task = parts[0];
                         by = parts[1];
@@ -105,16 +105,16 @@ public class Bin {
                         break;
                     case "event":
                         if (parts.length < 2) {
-                            throw new BinException(line + "    Please include a description of the task\n" + line);
+                            throw new NoTaskDescriptionException();
                         }
                         parts = parts[1].split("/from", 2);
                         if (parts.length < 2) {
-                            throw new BinException(line + "    Please include a start time of the task\n" + line);
+                            throw new NoInputException("start time");
                         }
                         task = parts[0];
                         parts = parts[1].split("/to", 2);
                         if (parts.length < 2) {
-                            throw new BinException(line + "    Please include a end time of the task\n" + line);
+                            throw new NoInputException("end time");
                         }
                         from = parts[0];
                         to = parts[1];
@@ -122,16 +122,16 @@ public class Bin {
                         break;
                     case "delete":
                         if (parts.length < 2) {
-                            throw new BinException(line + "    Please state which task to delete\n" + line);
+                            throw new NoTaskNumberException();
                         }
                         num = Integer.parseInt(parts[1]);
                         System.out.println(delete(num - 1));
                         break;
                     default:
-                        throw new BinException(line + "    Invalid instructions\n" + line);
+                        throw new NoInputException("instruction");
                 }
             } catch (BinException e) {
-                System.out.println(e.getMessage());
+                System.out.println(line + e.getMessage() + "\n" + line);
             }
             input = scanner.nextLine();
         }
