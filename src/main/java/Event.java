@@ -1,19 +1,19 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Event extends Task {
-    protected String from;
-    protected String to;
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     public Event(Boolean isDone, String description, String from, String to) {
         super(isDone, description);
-        this.from = from;
-        this.to = to;
+        this.from = super.readDate(from);
+        this.to = super.readDate(to);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + from + "to:" + to + ")";
+        return "[E]" + super.toString() + " (from:" + from.format(super.format)
+                + "to:" + to.format(super.format) + ")";
     }
 
     @Override
