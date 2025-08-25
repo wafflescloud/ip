@@ -100,7 +100,7 @@ public class Bin {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(greeting());
-
+        list();
         String input = scanner.nextLine();
 
         while (!input.equals("bye")) {
@@ -122,15 +122,21 @@ public class Bin {
                         throw new NoTaskNumberException();
                     }
                     int num = Integer.parseInt(parts[1]);
+                    if (num > taskNum) {
+                        throw new NoTaskNumberException();
+                    }
                     System.out.println(line + tasks.get(num - 1).markAsDone() + line);
                     break;
                 case "unmark":
                     if (parts.length < 2) {
                         throw new NoTaskNumberException();
                     }
-                        num = Integer.parseInt(parts[1]);
-                        System.out.println(line + tasks.get(num - 1).markAsNotDone() + line);
-                        break;
+                    num = Integer.parseInt(parts[1]);
+                    if (num > taskNum) {
+                        throw new NoTaskNumberException();
+                    }
+                    System.out.println(line + tasks.get(num - 1).markAsNotDone() + line);
+                    break;
                 case "todo":
                     if (parts.length < 2) {
                         throw new NoTaskDescriptionException();
@@ -172,6 +178,9 @@ public class Bin {
                         throw new NoTaskNumberException();
                     }
                     num = Integer.parseInt(parts[1]);
+                    if (num > taskNum) {
+                        throw new NoTaskNumberException();
+                    }
                     System.out.println(delete(num - 1));
                     break;
                 default:
