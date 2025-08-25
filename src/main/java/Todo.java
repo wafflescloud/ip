@@ -1,6 +1,6 @@
 public class Todo extends Task{
-    public Todo(String description) {
-        super(description);
+    public Todo(Boolean isDone, String description) {
+        super(isDone, description);
     }
 
     @Override
