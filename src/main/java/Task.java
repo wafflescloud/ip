@@ -2,9 +2,14 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(Boolean isDone, String description) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
+    }
+
+    public String addTask() {
+        int num = isDone ? 1 : 0;
+        return "T | " + num + " | " + description;
     }
 
     public String markAsDone() {
