@@ -1,12 +1,11 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class Deadline extends Task{
-    protected String by;
+    protected LocalDateTime by;
 
     public Deadline(Boolean isDone, String description, String by) {
         super(isDone, description);
-        this.by = by;
+        this.by = super.readDate(by);
     }
 
     @Override
@@ -17,6 +16,6 @@ public class Deadline extends Task{
     @Override
     public String addTask() {
         int num = isDone ? 1 : 0;
-        return "D | " + num + " | " + description + " | " + by;
+        return "D | " + num + " | " + description + " | " + by.format(super.format);
     }
 }

@@ -1,10 +1,18 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected DateTimeFormatter format = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Task(Boolean isDone, String description) {
         this.description = description;
         this.isDone = isDone;
+    }
+
+    public LocalDateTime readDate(String str) {
+        return LocalDateTime.parse(str, format);
     }
 
     public String addTask() {
