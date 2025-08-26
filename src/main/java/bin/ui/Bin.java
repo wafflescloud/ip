@@ -1,5 +1,6 @@
 package bin.ui;
 
+
 import bin.exception.BinException;
 import bin.parser.Parser;
 import bin.storage.Storage;
