@@ -18,21 +18,35 @@ public class Task {
         return LocalDateTime.parse(str.trim(), format);
     }
 
+    /**
+     * Format to be added into task list.
+     */
     public String addTask() {
         int num = isDone ? 1 : 0;
         return "T | " + num + " | " + description;
     }
 
+    /**
+     * Marks task as complete.
+     */
     public String markAsDone() {
         this.isDone = true;
         return String.format("    Nice! I've marked this task as done:\n      %s\n", this.toString());
     }
 
+    /**
+     * Marks task as incomplete.
+     */
     public String markAsNotDone() {
         this.isDone = false;
         return String.format("    OK, I've marked this task as not done yet:\n      %s\n", this.toString());
     }
 
+    /**
+     * Return the sign of completion status.
+     *
+     * @return String "X" if task is complete.
+     */
     public String getStatusIcon() {
         return isDone
                 ? "X"

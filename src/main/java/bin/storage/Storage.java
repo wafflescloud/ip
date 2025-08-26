@@ -18,6 +18,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks data from this storage file, and then returns it.
+     * Returns an empty tasks if the file does not exist, or is not a regular file.
+     *
+     * @return a list of Task objects
+     * @throws BinException if there were errors reading and/or converting data from file.
+     */
     public List<Task> load() throws BinException {
         File f = new File(this.filePath);
         Scanner s = null;
@@ -52,6 +59,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the {@code TaskList} data to the storage file.
+     *
+     * @param tasks Task list for storage
+     */
     public void save(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath, false);

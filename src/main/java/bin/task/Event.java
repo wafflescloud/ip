@@ -6,6 +6,9 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructor for Event type of task.
+     */
     public Event(Boolean isDone, String description, String from, String to) {
         super(isDone, description);
         this.from = super.readDate(from);

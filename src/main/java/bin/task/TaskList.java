@@ -5,13 +5,23 @@ import java.util.List;
 
 public class TaskList {
     private List<Task> tasks;
+
+    /**
+     * Creates an empty task list.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a task list with the given data.
+     *
+     * @param tasks list of task objects to be in task list.
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = tasks;
     }
+
 
     public List<Task> getTasks() {
         return tasks;
@@ -40,12 +50,26 @@ public class TaskList {
         return tasks.get(i - 1).markAsNotDone();
     }
 
+    /**
+     * returns a String and adds a task into task list.
+     *
+     * @param task Task to add into list.
+     *
+     * @return message to display for successful addition of task.
+     **/
     public String add(Task task) {
         tasks.add(task);
         return "    Got it. I've added this task:\n      " + task.toString() + "\n" +
                 "    Now you have " + tasks.size() + " tasks in the list.\n";
     }
 
+    /**
+     * returns a message and deletes a task into task list.
+     *
+     * @param i position of task to remove in task list.
+     *
+     * @return message to display for successful deletion of task.
+     **/
     public String delete(int i) {
         Task task = tasks.get(i);
         tasks.remove(i);

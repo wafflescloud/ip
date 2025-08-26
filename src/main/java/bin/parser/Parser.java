@@ -23,6 +23,11 @@ public class Parser {
         this.tasks = tasks;
     }
 
+    /**
+     * Parses user input into command for execution.
+     *
+     * @return String to be displayed after completion of command
+     */
     public String parseCommand() {
         String message = "";
         try {

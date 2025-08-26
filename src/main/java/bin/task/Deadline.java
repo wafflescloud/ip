@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     protected LocalDateTime by;
 
+    /**
+     * Constructor for Deadline type of task.
+     */
     public Deadline(Boolean isDone, String description, String by) {
         super(isDone, description);
         this.by = super.readDate(by);

@@ -21,6 +21,7 @@ public class Bin {
         }
     }
 
+    /** Reads the user command and executes it, until the user issues the exit command.  */
     private void runCommandUntilExit() {
         String command = ui.getUserCommand();
         while(!command.equals("bye")) {
@@ -31,6 +32,7 @@ public class Bin {
         }
     }
 
+    /** Runs the program until termination.  */
     public void run() {
         ui.greeting();
         this.runCommandUntilExit();
