@@ -1,0 +1,109 @@
+package bin.parser;
+
+import bin.exception.BinException;
+import bin.exception.NoInputException;
+import bin.exception.NoTaskDescriptionException;
+import bin.exception.NoTaskNumberException;
+import bin.task.Deadline;
+import bin.task.Event;
+import bin.task.TaskList;
+import bin.task.Todo;
+
+public class Parser {
+    private TaskList tasks;
+    private final String command;
+    private String action;
+    private String description;
+    private String from;
+    private String to;
+    private String by;
+
+    public Parser(String command, TaskList tasks) {
+        this.command = command;
+        this.tasks = tasks;
+    }
+
+    public String parseCommand() {
+        String message = "";
+        try {
+            String[] parts = command.split("\\s+", 2);
+            action = parts[0];
+            switch (action) {
+            case "list":
+                message = tasks.toString();
+            break;
+            case "mark":
+                if (parts.length < 2) {
+                    throw new NoTaskNumberException();
+                }
+                int num = Integer.parseInt(parts[1]);
+                if (num > tasks.size()) {
+                    throw new NoTaskNumberException();
+                }
+                message = tasks.mark(num);
+                break;
+            case "unmark":
+                if (parts.length < 2) {
+                    throw new NoTaskNumberException();
+                }
+                num = Integer.parseInt(parts[1]);
+                if (num > tasks.size()) {
+                    throw new NoTaskNumberException();
+                }
+                message = tasks.unmark(num);
+                break;  
+            case "todo":
+                if (parts.length < 2) {
+                    throw new NoTaskDescriptionException();
+                }
+                description = parts[1];
+                message = tasks.add(new Todo(false, description));
+                break;
+            case "deadline":
+                if (parts.length < 2) {
+                    throw new NoTaskDescriptionException();
+                }
+                parts = parts[1].split("/by", 2);
+                if (parts.length < 2) {
+                    throw new NoInputException("deadline");
+                }
+                description = parts[0];
+                by = parts[1];
+                message = tasks.add(new Deadline(false, description, by));
+                break;
+            case "event":
+                if (parts.length < 2) {
+                    throw new NoTaskDescriptionException();
+                }
+                parts = parts[1].split("/from", 2);
+                if (parts.length < 2) {
+                    throw new NoInputException("start time");
+                }
+                description = parts[0];
+                parts = parts[1].split("/to", 2);
+                if (parts.length < 2) {
+                    throw new NoInputException("end time");
+                }
+                from = parts[0];
+                to = parts[1];
+                message = tasks.add(new Event(false, description, from, to));
+                break;
+            case "delete":
+                if (parts.length < 2) {
+                    throw new NoTaskNumberException();
+                }
+                num = Integer.parseInt(parts[1]);
+                if (num > tasks.size()) {
+                    throw new NoTaskNumberException();
+                }
+                message = tasks.delete(num);
+                break;
+            default:
+                throw new NoInputException("instruction");
+            }
+        } catch (BinException e) {
+            System.err.println(e.getMessage());
+        }
+        return message;
+    }
+}
