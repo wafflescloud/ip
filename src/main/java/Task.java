@@ -5,6 +5,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected DateTimeFormatter format = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    protected DateTimeFormatter stringFormat = DateTimeFormatter.ofPattern("d MMMM ha");
 
     public Task(Boolean isDone, String description) {
         this.description = description;
@@ -12,7 +13,7 @@ public class Task {
     }
 
     public LocalDateTime readDate(String str) {
-        return LocalDateTime.parse(str, format);
+        return LocalDateTime.parse(str.trim(), format);
     }
 
     public String addTask() {

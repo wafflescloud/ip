@@ -12,13 +12,14 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + from.format(super.format)
-                + "to:" + to.format(super.format) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(super.stringFormat)
+                + " to: " + to.format(super.stringFormat) + ")";
     }
 
     @Override
     public String addTask() {
         int num = isDone ? 1 : 0;
-        return "E | " + num + " | " + description + " | " + from + " | " + to;
+        return "E | " + num + " | " + description + " | "
+                + from.format(super.format) + " | " + to.format(super.format);
     }
 }

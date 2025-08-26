@@ -10,12 +10,12 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by:" + by + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(super.stringFormat) + ")";
     }
 
     @Override
     public String addTask() {
         int num = isDone ? 1 : 0;
-        return "D | " + num + " | " + description + " | " + by.format(super.format);
+        return "D | " + num + " | " + description + "| " + by.format(super.format);
     }
 }
