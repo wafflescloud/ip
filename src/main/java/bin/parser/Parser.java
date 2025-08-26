@@ -98,6 +98,13 @@ public class Parser {
                 }
                 message = tasks.delete(num);
                 break;
+            case "find":
+                if (parts.length < 2) {
+                    throw new NoTaskDescriptionException();
+                }
+                String keyword = parts[1];
+                message = tasks.search(keyword);
+                break;
             default:
                 throw new NoInputException("instruction");
             }

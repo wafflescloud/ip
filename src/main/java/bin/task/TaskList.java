@@ -52,4 +52,21 @@ public class TaskList {
         return "    Noted. I've removed this task:\n      " + task.toString() + "\n" +
                 "    Now you have " + tasks.size() + " tasks in the list.\n";
     }
+
+    /**
+     * returns message for list of tasks with keyword.
+     *
+     * @param keyword String of keyword.
+     * @return list of tasks containing keyword.
+     */
+    public String search(String keyword) {
+        List<Task> filtered = tasks.stream().filter(task -> task.contains(keyword)).toList();
+        String result = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < filtered.size(); i++) {
+            Task task = filtered.get(i);
+            int num = i + 1;
+            result += "    " + num + "." + task.toString() + "\n";
+        }
+        return result;
+    }
 }

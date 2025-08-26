@@ -43,4 +43,14 @@ public class Task {
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
+
+    /**
+     * returns true if description of task contains keyword.
+     *
+     * @param keyword String of keyword.
+     * @return boolean whether description contains keyword.
+     */
+    public boolean contains(String keyword) {
+        return this.description.contains(keyword);
+    }
 }
