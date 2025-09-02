@@ -114,7 +114,7 @@ public class Parser {
                 throw new NoInputException("instruction");
             }
         } catch (BinException e) {
-            System.err.println(e.getMessage());
+            return e.getMessage();
         }
         return message;
     }

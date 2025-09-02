@@ -9,38 +9,19 @@ import bin.task.TaskList;
 public class Bin {
     private Storage storage;
     private TaskList tasks;
-    private Ui ui;
 
     public Bin(String filePath) {
-        ui = new Ui();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (BinException e) {
-            ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
-    /** Reads the user command and executes it, until the user issues the exit command.  */
-    private void runCommandUntilExit() {
-        String command = ui.getUserCommand();
-        while(!command.equals("bye")) {
-            Parser parser = new Parser(command, this.tasks);
-            ui.showToUser(parser.parseCommand());
-            storage.save(tasks);
-            command = ui.getUserCommand();
-        }
-    }
-
-    /** Runs the program until termination.  */
-    public void run() {
-        ui.greeting();
-        this.runCommandUntilExit();
-        ui.exit();
-    }
-
-    public static void main(String[] args) {
-        new Bin("data/bin.txt").run();
+    public String getResponse(String command) {
+        Parser parser = new Parser(command, this.tasks);
+        storage.save(tasks);
+        return parser.parseCommand();
     }
 }
