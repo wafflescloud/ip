@@ -59,8 +59,8 @@ public class TaskList {
      **/
     public String add(Task task) {
         tasks.add(task);
-        return "    Got it. I've added this task:\n      " + task.toString() + "\n" +
-                "    Now you have " + tasks.size() + " tasks in the list.\n";
+        return "    Got it. I've added this task:\n      " + task.toString() + "\n"
+                + "    Now you have " + tasks.size() + " tasks in the list.\n";
     }
 
     /**
@@ -73,8 +73,8 @@ public class TaskList {
     public String delete(int i) {
         Task task = tasks.get(i);
         tasks.remove(i);
-        return "    Noted. I've removed this task:\n      " + task.toString() + "\n" +
-                "    Now you have " + tasks.size() + " tasks in the list.\n";
+        return "    Noted. I've removed this task:\n      " + task.toString() + "\n"
+                + "    Now you have " + tasks.size() + " tasks in the list.\n";
     }
 
     /**
