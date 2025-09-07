@@ -13,7 +13,7 @@ public class Bin {
     public Bin(String filePath) {
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadingTasks());
         } catch (BinException e) {
             tasks = new TaskList();
         }
