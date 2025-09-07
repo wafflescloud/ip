@@ -10,6 +10,9 @@ public class Task {
     protected DateTimeFormatter stringFormat = DateTimeFormatter.ofPattern("d MMMM ha");
 
     public Task(Boolean isDone, String description) {
+        assert isDone != null : "isDone should not be null";
+        assert description != null : "description should not be null";
+
         this.description = description;
         this.isDone = isDone;
     }
@@ -65,6 +68,8 @@ public class Task {
      * @return boolean whether description contains keyword.
      */
     public boolean contains(String keyword) {
+        assert keyword != null : "Keyword should not be null";
+
         return this.description.contains(keyword);
     }
 }
