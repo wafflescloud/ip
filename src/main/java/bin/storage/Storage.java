@@ -25,7 +25,7 @@ public class Storage {
      * @return a list of Task objects
      * @throws BinException if there were errors reading and/or converting data from file.
      */
-    public List<Task> load() throws BinException {
+    public List<Task> loadingTasks() throws BinException {
         File f = new File(this.filePath);
         Scanner s = null;
         List<Task> tasks = new ArrayList<>();
@@ -38,7 +38,7 @@ public class Storage {
             File dir = new File(dirName);
             dir.mkdir();
             new File(dir, name);
-            throw new BinException("No current file");
+            throw new BinException("Data file not found");
         }
         while (s.hasNext()) {
             String task = s.nextLine();

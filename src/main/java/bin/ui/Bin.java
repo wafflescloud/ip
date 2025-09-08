@@ -14,7 +14,7 @@ public class Bin {
         assert filePath != null : "File path must not be null";
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadingTasks());
         } catch (BinException e) {
             tasks = new TaskList();
         }
