@@ -62,7 +62,10 @@ public class Parser {
                     throw new NoTaskDescriptionException();
                 }
                 description = parts[1];
-                message = tasks.add(new Todo(false, description));
+                Todo task = new Todo(false, description);
+                if (this.tasks.checkDuplicate(task)) {
+                    message = tasks.add(task);
+                }
                 break;
             case "deadline":
                 if (parts.length < 2) {
@@ -74,7 +77,11 @@ public class Parser {
                 }
                 description = parts[0];
                 by = parts[1];
-                message = tasks.add(new Deadline(false, description, by));
+                Deadline deadline = new Deadline(false, description, by);
+                if (this.tasks.checkDuplicate(deadline)) {
+                    message = tasks.add(deadline);
+                }
+
                 break;
             case "event":
                 if (parts.length < 2) {
@@ -91,7 +98,10 @@ public class Parser {
                 }
                 from = parts[0];
                 to = parts[1];
-                message = tasks.add(new Event(false, description, from, to));
+                Event event = new Event(false, description, from, to);
+                if (this.tasks.checkDuplicate(event)) {
+                    message = tasks.add(event);
+                }
                 break;
             case "delete":
                 if (parts.length < 2) {
