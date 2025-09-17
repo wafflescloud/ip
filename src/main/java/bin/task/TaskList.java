@@ -93,4 +93,8 @@ public class TaskList {
         }
         return result;
     }
+
+    public boolean checkDuplicate(Task newTask) {
+        return tasks.stream().noneMatch(t -> t.equals(newTask));
+    }
 }
